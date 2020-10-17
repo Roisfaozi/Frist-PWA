@@ -59,15 +59,26 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const item = getArticleById();
+            var urlParams = new URLSearchParams(window.location.search);
+            var isFromSaved = urlParams.get('saved');
 
-            const save = document.getElementById('save');
-            save.onclick = function () {
-                console.log('Tombol FAB di klik.');
+            var btnSave = document.getElementById('save');
+
+            if (isFromSaved) {
+                btnSave.style.display = 'none';
+
+                getSavedArticleById();
+            } else {
+                var item = getArticleById();
+
+            }
+
+            btnSave.onclick = function () {
+                console.log('tombol Fab di klik');
                 item.then((article) => {
                     saveForLater(article);
                 });
-            }
+            };
 
         });
     </script>

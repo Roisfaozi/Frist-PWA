@@ -131,3 +131,50 @@ function getArticleById() {
   })
 
 }
+
+function getSavedArticles() {
+  getAll().then((articles) => {
+    console.log(articles);
+
+    let articlesHTML = '';
+    articles.forEach((article) => {
+      let description = article.post_content.substring(0, 100);
+      articlesHTML += `
+      <div class="card">
+      <a href="./article.html?id=${article.ID}">
+      <div class="card-image waves-effect waves-block = waves-light">
+      <img src="${article.cover}"/>
+      </div>
+      </a>
+      <div class="card-content">
+      <span class="card-title truncate">${article.post_title}</span>
+      <p>${description}</p>
+      </div>
+      </div>
+      `;
+    });
+    document.getElementById('body-content').innerHTML = articlesHTML;
+  })
+}
+
+function getSavedActicleById() {
+  const urlParams = new URLSearchParams(window.location.search);
+  var idParam = urlParams.get('id');
+
+  getById(idParam).then((article) => {
+    articleHTML = '';
+    let articleHTML = `
+    <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+    <img src="${article.cover}"/>
+    </div>
+    <div class="card-content">
+    <span class="card-title">${article.post_title}</span>
+    ${snarkdown(article.post_content)}
+    </div>
+    </div>
+    `;
+
+    document.getElementById('body-content').innerHTML = articleHTML;
+  });
+}

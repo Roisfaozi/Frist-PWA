@@ -42,6 +42,11 @@ function loadPage(page) {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             var content = document.querySelector("#body-content");
+            if (page === 'home') {
+                getArticles();
+            } else if (page === 'saved') {
+                getSavedArticles();
+            }
             if (this.status === 200) {
                 content.innerHTML = xhttp.responseText;
                 console.log(content.innerHTML)
